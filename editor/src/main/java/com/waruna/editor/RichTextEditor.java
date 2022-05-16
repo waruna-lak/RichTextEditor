@@ -2,6 +2,8 @@ package com.waruna.editor;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -71,9 +73,18 @@ public class RichTextEditor extends WebView {
 
     /**
      * return controller of rich text editor
+     *
      * @return
      */
     public EditorController getController() {
         return controller;
+    }
+
+    private void handleNightMode() {
+        int mode = getContext().getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+        if (mode == Configuration.UI_MODE_NIGHT_YES) {
+            controller.setDarkMode(true);
+        }
     }
 }
