@@ -104,6 +104,17 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
             }
         });
 
+        // hide nav
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                boolean right = toolbar.canScrollHorizontally(1);
+                if (!right) {
+                    hideNavButton();
+                }
+            }
+        });
+
         /*ArrayList<ToolbarItem> options = new ArrayList<>();
         options.add(new ToolbarItem(Action.BOLD, R.drawable.ic_format_bold));
         options.add(new ToolbarItem(Action.ITALIC, R.drawable.ic_format_italic));
