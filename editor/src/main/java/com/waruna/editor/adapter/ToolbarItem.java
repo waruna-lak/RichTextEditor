@@ -3,10 +3,10 @@ package com.waruna.editor.adapter;
 import androidx.annotation.IdRes;
 
 public class ToolbarItem {
-    int type;
+    private int type;
     @IdRes
-    int drawable;
-    boolean active;
+    private int drawable;
+    private boolean active;
 
 
     public ToolbarItem(int type, int drawable) {

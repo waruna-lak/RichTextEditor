@@ -181,7 +181,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
         post(() -> {
             boolean isActive;
 
-            if (value instanceof Boolean){
+            if (value instanceof Boolean) {
                 isActive = (boolean) value;
             } else {
                 isActive = false;
@@ -193,6 +193,11 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
 
     @Override
     public void onClick(ToolbarItem item) {
+        // update list selection
+        if (item.getType() == Action.ORDERED || item.getType() == Action.UNORDERED) {
+            adapter.notifyDataSetChanged();
+        }
+
         switch (item.getType()) {
             case Action.UNDO:
             case Action.REDO:

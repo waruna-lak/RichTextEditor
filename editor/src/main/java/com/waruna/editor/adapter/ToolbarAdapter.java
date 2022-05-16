@@ -85,12 +85,12 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
     public void setActive(int type, boolean active) {
         for (int i = 0; i < items.size(); i++) {
             if (type == Action.NONE) {
-                items.get(i).active = false;
+                items.get(i).setActive(false);
                 notifyItemChanged(i);
             }
 
             if (items.get(i).getType() == type) {
-                items.get(i).active = active;
+                items.get(i).setActive(active);
                 notifyItemChanged(i);
             }
         }
@@ -107,12 +107,12 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
 
         @SuppressLint("ResourceType")
         public void onBind(ToolbarItem item) {
-            imageView.setImageResource(item.drawable);
+            imageView.setImageResource(item.getDrawable());
             updateColor(item.isActive());
 
             itemView.setOnClickListener(view -> {
                 if (listener != null) {
-                    item.setActive(!item.isActive());
+                    setActive(item);
                     updateColor(item.isActive());
                     listener.onClick(item);
                 }
@@ -124,6 +124,16 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
                 imageView.setColorFilter(Color.CYAN, android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 imageView.clearColorFilter();
+            }
+        }
+
+        private void setActive(ToolbarItem selectItem) {
+            for (ToolbarItem item : items) {
+                if (selectItem.getType() == item.getType()){
+                    item.setActive(!item.isActive());
+                }else {
+                    item.setActive(false);
+                }
             }
         }
     }
