@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
 
     private RecyclerView toolbar;
     private ImageView nav;
+    private ConstraintLayout root;
     private EditorController editor;
     private ToolbarAdapter adapter;
     private int direction = 1;
@@ -59,15 +61,24 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
 
     private void init() {
         inflate(getContext(), R.layout.layout_toolbar, this);
+
+        // init views
         toolbar = findViewById(R.id.rv_toolbar);
         nav = findViewById(R.id.iv_nav);
+        root = findViewById(R.id.root);
 
+        // int adapter
         adapter = new ToolbarAdapter(new ArrayList<>());
         adapter.setListener(this);
 
         toolbar.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         toolbar.setAdapter(adapter);
 
+        // set colors
+        root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.toolbar_background));
+        adapter.setSelectColor(ContextCompat.getColor(getContext(), R.color.toolbar_select));
+
+        // init listeners
         nav.setOnClickListener(this);
 
         toolbar.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -82,11 +93,11 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 boolean left = toolbar.canScrollHorizontally(-1);
                 boolean right = toolbar.canScrollHorizontally(1);
 
-                if (right && !left){
+                if (right && !left) {
                     nav.setImageResource(R.drawable.ic_chevron_right);
                     direction = 1;
                 }
-                if (left && !right){
+                if (left && !right) {
                     nav.setImageResource(R.drawable.ic_chevron_left);
                     direction = -1;
                 }

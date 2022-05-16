@@ -35,9 +35,11 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
 
     private List<ToolbarItem> items;
     private ItemClickListener listener;
+    private int selectColor;
 
     public ToolbarAdapter(List<ToolbarItem> items) {
         this.items = items;
+        this.selectColor = Color.CYAN;
     }
 
     @NonNull
@@ -96,6 +98,15 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
         }
     }
 
+    /**
+     * Set color for apply when click on edit options
+     *
+     * @param selectColor
+     */
+    public void setSelectColor(int selectColor) {
+        this.selectColor = selectColor;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
@@ -121,7 +132,7 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
 
         private void updateColor(boolean active) {
             if (active) {
-                imageView.setColorFilter(Color.CYAN, android.graphics.PorterDuff.Mode.SRC_IN);
+                imageView.setColorFilter(selectColor, android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 imageView.clearColorFilter();
             }
@@ -129,9 +140,9 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
 
         private void setActive(ToolbarItem selectItem) {
             for (ToolbarItem item : items) {
-                if (selectItem.getType() == item.getType()){
+                if (selectItem.getType() == item.getType()) {
                     item.setActive(!item.isActive());
-                }else {
+                } else {
                     item.setActive(false);
                 }
             }
