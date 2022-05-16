@@ -34,13 +34,13 @@ import java.util.List;
  * limitations under the License.
  */
 
-public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallback, ToolbarAdapter.ItemClickListener {
+public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallback, ToolbarAdapter.ItemClickListener, View.OnClickListener {
 
     private RecyclerView toolbar;
     private ImageView nav;
     private EditorController editor;
     private ToolbarAdapter adapter;
-    private List<Integer> actions;
+    private int direction = 1;
 
     public EditorToolbar(@NonNull Context context) {
         super(context);
@@ -61,13 +61,37 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
         inflate(getContext(), R.layout.layout_toolbar, this);
         toolbar = findViewById(R.id.rv_toolbar);
         nav = findViewById(R.id.iv_nav);
-        actions = new ArrayList<>();
 
         adapter = new ToolbarAdapter(new ArrayList<>());
         adapter.setListener(this);
 
         toolbar.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         toolbar.setAdapter(adapter);
+
+        nav.setOnClickListener(this);
+
+        toolbar.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                boolean left = toolbar.canScrollHorizontally(-1);
+                boolean right = toolbar.canScrollHorizontally(1);
+
+                if (right && !left){
+                    nav.setImageResource(R.drawable.ic_chevron_right);
+                    direction = 1;
+                }
+                if (left && !right){
+                    nav.setImageResource(R.drawable.ic_chevron_left);
+                    direction = -1;
+                }
+            }
+        });
 
         /*ArrayList<ToolbarItem> options = new ArrayList<>();
         options.add(new ToolbarItem(Action.BOLD, R.drawable.ic_format_bold));
@@ -94,7 +118,6 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
      * @param actions
      */
     public void setActions(List<Integer> actions) {
-        this.actions = actions;
 
         List<ToolbarItem> toolbarItems = new ArrayList<>();
         for (int a : actions) {
@@ -251,6 +274,28 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 break;
             }
             default: {
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.iv_nav) {
+            // nav
+            boolean left = toolbar.canScrollHorizontally(-1);
+            boolean right = toolbar.canScrollHorizontally(1);
+
+            if (direction == 1 && right) {
+                int position = adapter.getItemCount() - 1;
+                toolbar.scrollToPosition(position);
+                nav.setImageResource(R.drawable.ic_chevron_left);
+                direction = -1;
+            }
+
+            if (direction == -1 && left) {
+                toolbar.scrollToPosition(0);
+                nav.setImageResource(R.drawable.ic_chevron_right);
+                direction = 1;
             }
         }
     }
