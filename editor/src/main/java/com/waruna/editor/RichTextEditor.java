@@ -69,6 +69,8 @@ public class RichTextEditor extends WebView {
         setWebViewClient(new WebViewClient());
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
+
+        setBackgroundColor(Color.TRANSPARENT);
     }
 
     /**
