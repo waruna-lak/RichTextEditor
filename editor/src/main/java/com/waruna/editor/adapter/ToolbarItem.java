@@ -7,12 +7,14 @@ public class ToolbarItem {
     @IdRes
     private int drawable;
     private boolean active;
+    private boolean update;
 
 
     public ToolbarItem(int type, int drawable) {
         this.type = type;
         this.drawable = drawable;
         this.active = false;
+        this.update = true;
     }
 
     public int getType() {
@@ -37,5 +39,13 @@ public class ToolbarItem {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 }

@@ -214,6 +214,14 @@ public class EditorController {
     }
 
     /**
+     * Method to hide keyboard to blur focus of view
+     */
+    void blur(){
+        InputMethodManager im = (InputMethodManager) webView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(webView.getWindowToken(), 0);
+    }
+
+    /**
      * Method to disable the editor
      */
     void disable() {
@@ -272,7 +280,7 @@ public class EditorController {
      * @param color String
      */
     private void backColor(String color) {
-        load("javascript:background(" + color + ")", null);
+        load("javascript:background('" + color + "')", null);
     }
 
     /**
@@ -281,7 +289,7 @@ public class EditorController {
      * @param color String
      */
     private void foreColor(String color) {
-        load("javascript:color(" + color + ")", null);
+        load("javascript:color('" + color + "')", null);
     }
 
     /**

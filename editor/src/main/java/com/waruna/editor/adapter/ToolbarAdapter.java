@@ -139,6 +139,7 @@ public class ToolbarAdapter extends RecyclerView.Adapter<ToolbarAdapter.ViewHold
         }
 
         private void setActive(ToolbarItem selectItem) {
+            if (!selectItem.isUpdate()) return;
             for (ToolbarItem item : items) {
                 if (selectItem.getType() == item.getType()) {
                     item.setActive(!item.isActive());
