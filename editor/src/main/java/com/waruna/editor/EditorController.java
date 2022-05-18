@@ -281,7 +281,7 @@ public class EditorController {
      * @param color String
      */
     private void foreColor(String color) {
-        load("javascript:color(" + color + ")", null);
+        load("javascript:color('" + color + "')", null);
     }
 
     /**

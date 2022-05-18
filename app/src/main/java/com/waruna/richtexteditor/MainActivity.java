@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         options.add(Action.SUPERSCRIPT);
         options.add(Action.INDENT);
         options.add(Action.OUTDENT);
-//        options.add(Action.FORE_COLOR); // todo
-        options.add(Action.BACK_COLOR); // todo
+        options.add(Action.FORE_COLOR);
+        options.add(Action.BACK_COLOR);
 //        options.add(Action.CLEAR); // todo
         toolbar.setActions(options);
 

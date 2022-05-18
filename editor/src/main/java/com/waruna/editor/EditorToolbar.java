@@ -326,7 +326,12 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 break;
             }
             case Action.FORE_COLOR: {
-                editor.command(item.getType(), "f_color");
+                showColorPicker(new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        editor.command(item.getType(), value);
+                    }
+                });
                 break;
             }
             case Action.BACK_COLOR: {
