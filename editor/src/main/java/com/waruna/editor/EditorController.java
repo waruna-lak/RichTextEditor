@@ -272,7 +272,7 @@ public class EditorController {
      * @param color String
      */
     private void backColor(String color) {
-        load("javascript:background(" + color + ")", null);
+        load("javascript:background('" + color + "')", null);
     }
 
     /**
