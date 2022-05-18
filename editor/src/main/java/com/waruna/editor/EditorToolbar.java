@@ -144,7 +144,6 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
      * @param actions
      */
     public void setActions(List<Integer> actions) {
-
         List<ToolbarItem> toolbarItems = new ArrayList<>();
         for (int a : actions) {
             toolbarItems.add(getItem(a));
@@ -205,6 +204,16 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
         }
         if (Action.CLEAR == type) {
             return new ToolbarItem(Action.CLEAR, R.drawable.ic_format_clear);
+        }
+        if (Action.UNDO == type) {
+            ToolbarItem item = new ToolbarItem(Action.UNDO, R.drawable.ic_undo);
+            item.setUpdate(false);
+            return item;
+        }
+        if (Action.REDO == type) {
+            ToolbarItem item = new ToolbarItem(Action.REDO, R.drawable.ic_redo);
+            item.setUpdate(false);
+            return item;
         }
         return null;
     }

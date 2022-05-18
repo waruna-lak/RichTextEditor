@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setEditor(editor);
 
         List<Integer> options = new ArrayList<>();
+        options.add(Action.UNDO);
+        options.add(Action.REDO);
         options.add(Action.BOLD);
         options.add(Action.ITALIC);
         options.add(Action.UNDERLINE);
