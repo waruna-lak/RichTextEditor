@@ -326,6 +326,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 break;
             }
             case Action.FORE_COLOR: {
+                editor.blur();
                 showColorPicker(new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String value) {
@@ -335,6 +336,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 break;
             }
             case Action.BACK_COLOR: {
+                editor.blur();
                 showColorPicker(new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String color) {

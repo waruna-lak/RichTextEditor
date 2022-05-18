@@ -214,6 +214,14 @@ public class EditorController {
     }
 
     /**
+     * Method to hide keyboard to blur focus of view
+     */
+    void blur(){
+        InputMethodManager im = (InputMethodManager) webView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(webView.getWindowToken(), 0);
+    }
+
+    /**
      * Method to disable the editor
      */
     void disable() {
