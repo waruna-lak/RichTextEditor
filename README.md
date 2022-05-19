@@ -22,6 +22,11 @@
 - [x] Outdent
 - [x] Unordered List (Bullets)
 - [x] Ordered List (Numbers)
+- [x] Quote
+- [x] Foreground color
+- [x] Foreground color
+- [x] Undo
+- [x] Redo
 
 ## Requirements
 Android 5+
