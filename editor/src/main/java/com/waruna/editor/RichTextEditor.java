@@ -96,7 +96,7 @@ public class RichTextEditor extends WebView {
      *
      * @param callback OnTextReturned
      */
-    public void getText(EditorController.OnTextReturned callback){
+    public void getText(EditorController.OnTextReturned callback) {
         controller.getText(callback);
     }
 
@@ -105,8 +105,27 @@ public class RichTextEditor extends WebView {
      *
      * @param callback OnHtmlReturned
      */
-    public void getHtml(EditorController.OnHtmlReturned callback){
+    public void getHtml(EditorController.OnHtmlReturned callback) {
         controller.getHtmlContent(callback);
+    }
+
+    /**
+     * method for set json content to editor
+     *
+     * @param data json string
+     */
+    public void setContent(String data) {
+        controller.setContents(data);
+    }
+
+    /**
+     * method for set html content to editor
+     *
+     * @param html                  html string
+     * @param replaceCurrentContent set to true replace the whole content, false to concatenate
+     */
+    public void setHtmlContent(String html, boolean replaceCurrentContent) {
+        controller.setHtmlContent(html, replaceCurrentContent);
     }
 
     private void handleNightMode() {
