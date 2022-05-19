@@ -688,21 +688,21 @@ public class EditorController {
     /**
      * Interface as the callback for Java API on HTML returned
      */
-    interface OnHtmlReturned {
+    public interface OnHtmlReturned {
         void process(String html);
     }
 
     /**
      * Interface as the callback for Java API on text returned
      */
-    interface OnTextReturned {
+    public interface OnTextReturned {
         void process(String text);
     }
 
     /**
      * Interface as the callback for Java API on contents (delta) returned
      */
-    interface OnContentsReturned {
+    public interface OnContentsReturned {
         void process(String contents);
     }
 }
