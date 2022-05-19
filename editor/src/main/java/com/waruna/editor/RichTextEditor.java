@@ -82,6 +82,33 @@ public class RichTextEditor extends WebView {
         return controller;
     }
 
+    /**
+     * allows to get content as a json (delta)
+     *
+     * @param callback OnContentsReturned
+     */
+    public void getContent(EditorController.OnContentsReturned callback) {
+        controller.getContents(callback);
+    }
+
+    /**
+     * allows to get content as a text
+     *
+     * @param callback OnTextReturned
+     */
+    public void getText(EditorController.OnTextReturned callback){
+        controller.getText(callback);
+    }
+
+    /**
+     * allows to get content as a html
+     *
+     * @param callback OnHtmlReturned
+     */
+    public void getHtml(EditorController.OnHtmlReturned callback){
+        controller.getHtmlContent(callback);
+    }
+
     private void handleNightMode() {
         int mode = getContext().getResources().getConfiguration().uiMode &
                 Configuration.UI_MODE_NIGHT_MASK;
