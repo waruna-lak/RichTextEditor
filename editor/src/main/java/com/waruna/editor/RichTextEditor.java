@@ -69,6 +69,8 @@ public class RichTextEditor extends WebView {
         setWebViewClient(new WebViewClient());
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
+
+        setBackgroundColor(Color.TRANSPARENT);
     }
 
     /**
@@ -78,6 +80,52 @@ public class RichTextEditor extends WebView {
      */
     public EditorController getController() {
         return controller;
+    }
+
+    /**
+     * allows to get content as a json (delta)
+     *
+     * @param callback OnContentsReturned
+     */
+    public void getContent(EditorController.OnContentsReturned callback) {
+        controller.getContents(callback);
+    }
+
+    /**
+     * allows to get content as a text
+     *
+     * @param callback OnTextReturned
+     */
+    public void getText(EditorController.OnTextReturned callback) {
+        controller.getText(callback);
+    }
+
+    /**
+     * allows to get content as a html
+     *
+     * @param callback OnHtmlReturned
+     */
+    public void getHtml(EditorController.OnHtmlReturned callback) {
+        controller.getHtmlContent(callback);
+    }
+
+    /**
+     * method for set json content to editor
+     *
+     * @param data json string
+     */
+    public void setContent(String data) {
+        controller.setContents(data);
+    }
+
+    /**
+     * method for set html content to editor
+     *
+     * @param html                  html string
+     * @param replaceCurrentContent set to true replace the whole content, false to concatenate
+     */
+    public void setHtmlContent(String html, boolean replaceCurrentContent) {
+        controller.setHtmlContent(html, replaceCurrentContent);
     }
 
     private void handleNightMode() {

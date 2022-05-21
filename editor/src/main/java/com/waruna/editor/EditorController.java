@@ -214,6 +214,14 @@ public class EditorController {
     }
 
     /**
+     * Method to hide keyboard to blur focus of view
+     */
+    void blur() {
+        InputMethodManager im = (InputMethodManager) webView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(webView.getWindowToken(), 0);
+    }
+
+    /**
      * Method to disable the editor
      */
     void disable() {
@@ -272,7 +280,7 @@ public class EditorController {
      * @param color String
      */
     private void backColor(String color) {
-        load("javascript:background(" + color + ")", null);
+        load("javascript:background('" + color + "')", null);
     }
 
     /**
@@ -281,7 +289,7 @@ public class EditorController {
      * @param color String
      */
     private void foreColor(String color) {
-        load("javascript:color(" + color + ")", null);
+        load("javascript:color('" + color + "')", null);
     }
 
     /**
@@ -403,11 +411,16 @@ public class EditorController {
     /**
      * Method to get the HTML content and do (any) actions on the result - Java version
      *
-     * @param callback ValueCallback<String> action to do
+     * @param callback OnHtmlReturned action to do
      */
-    /*void getHtmlContent(OnHtmlReturned callback) {
-        getHtmlContent(s -> {callback.process(it)});
-    }*/
+    void getHtmlContent(OnHtmlReturned callback) {
+        getHtmlContent(new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String s) {
+                callback.process(s);
+            }
+        });
+    }
 
     /**
      * Private method to get the HTML content and do (any) actions on the result
@@ -421,13 +434,16 @@ public class EditorController {
     /**
      * Method to get the text content and do (any) actions on the result - Java version
      *
-     * @param callback ValueCallback<String> action to do
+     * @param callback OnTextReturned action to do
      */
-    /*void getText(callback:OnTextReturned) =
-
-    getText {
-        callback.process(it)
-    }*/
+    void getText(OnTextReturned callback) {
+        getText(new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String s) {
+                callback.process(s);
+            }
+        });
+    }
 
     /**
      * Private method to get the delta content and do (any) actions on the result
@@ -439,26 +455,18 @@ public class EditorController {
     }
 
     /**
-     * Method to get the delta content and do (any) actions on the result
-     *
-     * @param callback ValueCallback<String> action to do
-     */
-    /*void getContents(callback:((text:String) ->Unit)?)=
-
-    getContents(ValueCallback {
-        callback ?.invoke(it)
-    } )*/
-
-    /**
      * Method to get the delta content and do (any) actions on the result - Java version
      *
-     * @param callback ValueCallback<String> action to do
+     * @param callback OnContentsReturned action to do
      */
-    /*void getContents(callback:OnContentsReturned) =
-
-    getContents {
-        callback.process(it)
-    }*/
+    void getContents(OnContentsReturned callback) {
+        getContents(new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                callback.process(value);
+            }
+        });
+    }
 
     /**
      * Method to set the delta content to the editor
@@ -466,7 +474,7 @@ public class EditorController {
      * @param data String delta content as string
      */
     void setContents(String data) {
-        load("javascript:setContents($data)", null);
+        load("javascript:setContents('" +data + "')", null);
     }
 
     /**
@@ -673,5 +681,28 @@ public class EditorController {
             default:
                 throw new IllegalStateException("Unexpected value: " + actionType);
         }
+    }
+
+    // return interfaces
+
+    /**
+     * Interface as the callback for Java API on HTML returned
+     */
+    public interface OnHtmlReturned {
+        void process(String html);
+    }
+
+    /**
+     * Interface as the callback for Java API on text returned
+     */
+    public interface OnTextReturned {
+        void process(String text);
+    }
+
+    /**
+     * Interface as the callback for Java API on contents (delta) returned
+     */
+    public interface OnContentsReturned {
+        void process(String contents);
     }
 }

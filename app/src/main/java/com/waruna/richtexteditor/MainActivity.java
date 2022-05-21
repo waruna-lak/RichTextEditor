@@ -1,10 +1,13 @@
 package com.waruna.richtexteditor;
 
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.waruna.editor.EditorController;
 import com.waruna.editor.EditorToolbar;
 import com.waruna.editor.RichTextEditor;
 import com.waruna.editor.util.Action;
@@ -27,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setEditor(editor);
 
+        // init editor options
         List<Integer> options = new ArrayList<>();
+        options.add(Action.UNDO);
+        options.add(Action.REDO);
         options.add(Action.BOLD);
         options.add(Action.ITALIC);
         options.add(Action.UNDERLINE);
@@ -40,11 +46,48 @@ public class MainActivity extends AppCompatActivity {
         options.add(Action.SUPERSCRIPT);
         options.add(Action.INDENT);
         options.add(Action.OUTDENT);
-//        options.add(Action.FORE_COLOR); // todo
-//        options.add(Action.BACK_COLOR); // todo
+        options.add(Action.FORE_COLOR);
+        options.add(Action.BACK_COLOR);
 //        options.add(Action.CLEAR); // todo
         toolbar.setActions(options);
 
         WebView.setWebContentsDebuggingEnabled(true);
+
+        TextView tv = findViewById(R.id.tv_output);
+
+        // get editor content
+        findViewById(R.id.btn_html).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.getHtml(new EditorController.OnHtmlReturned() {
+                    @Override
+                    public void process(String html) {
+                        tv.setText(html);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.btn_content).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.getContent(new EditorController.OnContentsReturned() {
+                    @Override
+                    public void process(String contents) {
+                        tv.setText(contents);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.btn_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.getText(new EditorController.OnTextReturned() {
+                    @Override
+                    public void process(String html) {
+                        tv.setText(html);
+                    }
+                });
+            }
+        });
     }
 }

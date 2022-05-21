@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.waruna.editor.adapter.ToolbarAdapter;
 import com.waruna.editor.adapter.ToolbarItem;
+import com.waruna.editor.color_picker.ColorPickerDialog;
+import com.waruna.editor.color_picker.ColorPickerDialogListener;
 import com.waruna.editor.util.Action;
+import com.waruna.editor.util.ColorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +144,6 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
      * @param actions
      */
     public void setActions(List<Integer> actions) {
-
         List<ToolbarItem> toolbarItems = new ArrayList<>();
         for (int a : actions) {
             toolbarItems.add(getItem(a));
@@ -180,19 +183,37 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
             return new ToolbarItem(Action.SUPERSCRIPT, R.drawable.ic_superscript);
         }
         if (Action.INDENT == type) {
-            return new ToolbarItem(Action.INDENT, R.drawable.ic_format_indent_increase);
+            ToolbarItem item = new ToolbarItem(Action.INDENT, R.drawable.ic_format_indent_increase);
+            item.setUpdate(false);
+            return item;
         }
         if (Action.OUTDENT == type) {
-            return new ToolbarItem(Action.OUTDENT, R.drawable.ic_format_indent_decrease);
+            ToolbarItem item = new ToolbarItem(Action.OUTDENT, R.drawable.ic_format_indent_decrease);
+            item.setUpdate(false);
+            return item;
         }
         if (Action.FORE_COLOR == type) {
-            return new ToolbarItem(Action.FORE_COLOR, R.drawable.ic_format_color_text);
+            ToolbarItem item = new ToolbarItem(Action.FORE_COLOR, R.drawable.ic_format_color_text);
+            item.setUpdate(false);
+            return item;
         }
         if (Action.BACK_COLOR == type) {
-            return new ToolbarItem(Action.BACK_COLOR, R.drawable.ic_format_color_fill);
+            ToolbarItem item = new ToolbarItem(Action.BACK_COLOR, R.drawable.ic_format_color_fill);
+            item.setUpdate(false);
+            return item;
         }
         if (Action.CLEAR == type) {
             return new ToolbarItem(Action.CLEAR, R.drawable.ic_format_clear);
+        }
+        if (Action.UNDO == type) {
+            ToolbarItem item = new ToolbarItem(Action.UNDO, R.drawable.ic_undo);
+            item.setUpdate(false);
+            return item;
+        }
+        if (Action.REDO == type) {
+            ToolbarItem item = new ToolbarItem(Action.REDO, R.drawable.ic_redo);
+            item.setUpdate(false);
+            return item;
         }
         return null;
     }
@@ -219,6 +240,32 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
     public void setEditor(RichTextEditor editor) {
         this.editor = editor.getController();
         this.editor.setStyleUpdatedCallback(this);
+    }
+
+    private void showColorPicker(ValueCallback<String> callback) {
+        ColorPickerDialog dialog = ColorPickerDialog.newBuilder()
+                .setDialogTitle(R.string.cpv_default_title)
+                .setDialogType(ColorPickerDialog.TYPE_PRESETS)
+                .setShowAlphaSlider(true)
+                .setShowColorShades(true)
+                .create();
+        dialog.setColorPickerDialogListener(new ColorPickerDialogListener() {
+            @Override
+            public void onColorSelected(int dialogId, int color) {
+                callback.onReceiveValue(ColorHelper.toRGBAString(color));
+            }
+
+            @Override
+            public void onDialogDismissed(int dialogId) {
+
+            }
+        });
+
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .add(dialog, "color_picker")
+                .commit();
     }
 
     @Override
@@ -288,11 +335,23 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
                 break;
             }
             case Action.FORE_COLOR: {
-                editor.command(item.getType(), "f_color");
+                editor.blur();
+                showColorPicker(new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        editor.command(item.getType(), value);
+                    }
+                });
                 break;
             }
             case Action.BACK_COLOR: {
-                editor.command(item.getType(), "b_color");
+                editor.blur();
+                showColorPicker(new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String color) {
+                        editor.command(item.getType(), color);
+                    }
+                });
                 break;
             }
             default: {
