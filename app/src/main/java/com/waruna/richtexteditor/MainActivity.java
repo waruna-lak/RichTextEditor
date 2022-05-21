@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setEditor(editor);
 
+        // init editor options
         List<Integer> options = new ArrayList<>();
         options.add(Action.UNDO);
         options.add(Action.REDO);
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.tv_output);
 
+        // get editor content
         findViewById(R.id.btn_html).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
