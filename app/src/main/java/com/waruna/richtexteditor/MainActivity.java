@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.waruna.editor.EditorController;
 import com.waruna.editor.EditorToolbar;
+import com.waruna.editor.OnEditorReadyCallback;
 import com.waruna.editor.RichTextEditor;
 import com.waruna.editor.util.Action;
 
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
         WebView.setWebContentsDebuggingEnabled(true);
 
         TextView tv = findViewById(R.id.tv_output);
+
+        editor.onReady(new OnEditorReadyCallback() {
+            @Override
+            public void onReady() {
+                editor.setHtmlContent("Hello World!", false);
+            }
+        });
 
         // get editor content
         findViewById(R.id.btn_html).setOnClickListener(new View.OnClickListener() {

@@ -405,7 +405,7 @@ public class EditorController {
      * @param replaceCurrentContent Boolean set to true replace the whole content, false to concatenate
      */
     void setHtmlContent(String htmlContent, Boolean replaceCurrentContent) {
-        load("javascript:setHtml(" + htmlContent + ", " + replaceCurrentContent + ")", null);
+        load("javascript:setHtml('" + htmlContent + "', " + replaceCurrentContent + ")", null);
     }
 
     /**

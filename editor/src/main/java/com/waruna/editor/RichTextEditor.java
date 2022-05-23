@@ -33,6 +33,7 @@ public class RichTextEditor extends WebView {
     private static final String SETUP_HTML = "file:///android_asset/editor.html";
 
     private EditorController controller;
+    private OnEditorReadyCallback readyCallback;
 
     public RichTextEditor(@NonNull Context context) {
         super(context);
@@ -58,7 +59,7 @@ public class RichTextEditor extends WebView {
     private void init() {
 
         controller = new EditorController();
-        controller.setPlaceholder("Note");
+        controller.setPlaceholder("Type something here...");
         controller.setWebView(this);
 
         setVerticalScrollBarEnabled(false);
@@ -66,7 +67,13 @@ public class RichTextEditor extends WebView {
         getSettings().setJavaScriptEnabled(true);
         getSettings().setDomStorageEnabled(true);
         setWebChromeClient(new WebChromeClient());
-        setWebViewClient(new WebViewClient());
+        setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (readyCallback != null) readyCallback.onReady();
+            }
+        });
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
 
@@ -74,9 +81,18 @@ public class RichTextEditor extends WebView {
     }
 
     /**
+     * set OnEditorReadyCallback for get know about ideal time for use editor
+     *
+     * @param callback OnEditorReadyCallback
+     */
+    public void onReady(OnEditorReadyCallback callback) {
+        readyCallback = callback;
+    }
+
+    /**
      * return controller of rich text editor
      *
-     * @return
+     * @return EditorController
      */
     public EditorController getController() {
         return controller;
