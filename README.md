@@ -1,11 +1,8 @@
 
 # RichTextEditor
 
-<p >  
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">  
-    <img src="https://img.shields.io/badge/license-Apache%202-blue.svg" />  
-  </a>  
-</p>  
+[![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![](https://jitpack.io/v/waruna-lak/RichTextEditor.svg)](https://jitpack.io/#waruna-lak/RichTextEditor)
 
 `RichTextEditor` is a Rich Text `WYSIWYG Editor` for `Android`.
 

@@ -23,12 +23,12 @@ function darkMode(enable){
     if(enable){
         if (!body.classList.contains('bg-dark')) {
             body.classList.add('bg-dark')
-            body.classList.add('text-light')
+            //body.classList.add('text-light')
         }
     } else {
         if (body.classList.contains('bg-dark')) {
             body.classList.remove('bg-dark')
-            body.classList.remove('text-light')
+            //body.classList.remove('text-light')
         }
     }
 }
