@@ -3,8 +3,12 @@ package com.waruna.editor;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.TypedValue;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -72,12 +76,14 @@ public class RichTextEditor extends WebView {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 if (readyCallback != null) readyCallback.onReady();
+                handleNightMode();
             }
         });
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
 
         setBackgroundColor(Color.TRANSPARENT);
+
     }
 
     /**
@@ -151,4 +157,5 @@ public class RichTextEditor extends WebView {
             controller.setDarkMode(true);
         }
     }
+
 }
