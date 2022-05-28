@@ -155,5 +155,8 @@ function format(formatFunction) {
 }
 
 function setDefaultColor(color){
-    document.getElementById('editor').style.color = color;
+    document.documentElement.style.setProperty('--nr-color', color);
+}
+function setPlaceholderColor(color){
+    document.documentElement.style.setProperty('--pl-color', color);
 }

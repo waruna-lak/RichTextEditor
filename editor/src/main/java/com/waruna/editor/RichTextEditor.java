@@ -16,6 +16,8 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.waruna.editor.util.ColorHelper;
+
 /**
  * Copyright 2022 Waruna
  * <p>
@@ -83,6 +85,8 @@ public class RichTextEditor extends WebView {
         loadUrl(SETUP_HTML);
 
         setBackgroundColor(Color.TRANSPARENT);
+        setTextColor();
+        setPlaceholderTextColor();
 
     }
 
@@ -158,4 +162,27 @@ public class RichTextEditor extends WebView {
         }
     }
 
+    private void setTextColor() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
+        TypedArray arr =
+                getContext().obtainStyledAttributes(typedValue.data, new int[]{
+                        android.R.attr.textColorPrimary});
+        int textColor = arr.getColor(0, -1);
+        arr.recycle();
+        controller.setTextColor(ColorHelper.toRGBAString(textColor));
+    }
+
+    private void setPlaceholderTextColor() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(android.R.attr.textColorHint, typedValue, true);
+        TypedArray arr =
+                getContext().obtainStyledAttributes(typedValue.data, new int[]{
+                        android.R.attr.textColorHint});
+        int textColor = arr.getColor(0, -1);
+        arr.recycle();
+        controller.setPlaceholderColor(ColorHelper.toRGBAString(textColor));
+    }
 }

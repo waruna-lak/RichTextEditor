@@ -187,6 +187,24 @@ public class EditorController {
     }
 
     /**
+     * Method to change text color in general
+     *
+     * @param color
+     */
+    public void setTextColor(String color){
+        load("javascript:setDefaultColor('" + color + "')", null);
+    }
+
+    /**
+     * Method to change placeholder color in general
+     *
+     * @param color
+     */
+    public void setPlaceholderColor(String color){
+        load("javascript:setPlaceholderColor('" + color + "')", null);
+    }
+
+    /**
      * Method to undo the last change
      */
     private void undo() {
