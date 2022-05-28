@@ -1,11 +1,8 @@
 
 # RichTextEditor
 
-<p >  
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">  
-    <img src="https://img.shields.io/badge/license-Apache%202-blue.svg" />  
-  </a>  
-</p>  
+[![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![](https://jitpack.io/v/waruna-lak/RichTextEditor.svg)](https://jitpack.io/#waruna-lak/RichTextEditor)
 
 `RichTextEditor` is a Rich Text `WYSIWYG Editor` for `Android`.
 
@@ -30,6 +27,30 @@
 
 ## Requirements
 Android 5+
+
+## How to
+
+To get a Git project into your build:
+
+Step 1. Add the JitPack repository to your build file
+Add it in your root build.gradle at the end of repositories:
+
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+Step 2. Add the dependency
+
+```
+dependencies {
+    implementation 'com.github.waruna-lak:RichTextEditor:v0.1.0-alpha'
+}
+```
 
 ## License
 

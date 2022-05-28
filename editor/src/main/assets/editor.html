@@ -5,23 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/quill.snow.css" rel="stylesheet" />
-    <link href="css/task.list.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/quill.snow.css" rel="stylesheet"/>
+    <link href="css/task.list.css" rel="stylesheet"/>
     <style>
+        :root { --nr-color: inherit; --pl-color: rgba(248, 249, 250, 0.5);}
         .ql-container.ql-snow{ border: none !important;}
         .ql-container { font-size: inherit !important;}
-        .ql-editor { padding: 0 !important;}
-        .ql-editor.ql-blank::before { left: 0px !important; font-style: normal;}
+        .ql-editor { padding: 0 !important; color: var(--nr-color);}
+        .ql-editor.ql-blank::before { left: 0px !important; font-style: normal; color: var(--pl-color);}
+        .text-light .ql-editor.ql-blank::before { left: 0px !important; font-style: normal; color: var(--pl-color);}
         .transparent-bg { background-color: transparent; }
+
     </style>
 </head>
 <body class="transparent-bg">
-    <div id="editor"></div>
+<div id="editor"></div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/editor.js"></script>
-    <script src="js/task.list.js"></script>
-    <script src="js/script.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/task.list.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

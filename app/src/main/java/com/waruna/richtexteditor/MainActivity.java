@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.waruna.editor.EditorController;
 import com.waruna.editor.EditorToolbar;
+import com.waruna.editor.OnEditorReadyCallback;
 import com.waruna.editor.RichTextEditor;
 import com.waruna.editor.util.Action;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         editor = findViewById(R.id.rte_editor);
         toolbar = findViewById(R.id.rte_toolbar);
 
+        // connect toolbar with editor
         toolbar.setEditor(editor);
 
         // init editor options
@@ -53,38 +55,50 @@ public class MainActivity extends AppCompatActivity {
 
         WebView.setWebContentsDebuggingEnabled(true);
 
-        TextView tv = findViewById(R.id.tv_output);
+        TextView textOutput = findViewById(R.id.tv_output);
 
-        // get editor content
+        // check editor state and set content as html
+        editor.onReady(new OnEditorReadyCallback() {
+            @Override
+            public void onReady() {
+                editor.setHtmlContent("Hello World!", false);
+            }
+        });
+
+        // get editor content as html
         findViewById(R.id.btn_html).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.getHtml(new EditorController.OnHtmlReturned() {
                     @Override
                     public void process(String html) {
-                        tv.setText(html);
+                        textOutput.setText(html);
                     }
                 });
             }
         });
+
+        // get editor content as json (Delta Json object)
         findViewById(R.id.btn_content).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.getContent(new EditorController.OnContentsReturned() {
                     @Override
                     public void process(String contents) {
-                        tv.setText(contents);
+                        textOutput.setText(contents);
                     }
                 });
             }
         });
+
+        // get editor content as text
         findViewById(R.id.btn_text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editor.getText(new EditorController.OnTextReturned() {
                     @Override
                     public void process(String html) {
-                        tv.setText(html);
+                        textOutput.setText(html);
                     }
                 });
             }

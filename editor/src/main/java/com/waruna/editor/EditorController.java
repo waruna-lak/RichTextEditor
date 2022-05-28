@@ -187,6 +187,24 @@ public class EditorController {
     }
 
     /**
+     * Method to change text color in general
+     *
+     * @param color
+     */
+    public void setTextColor(String color){
+        load("javascript:setDefaultColor('" + color + "')", null);
+    }
+
+    /**
+     * Method to change placeholder color in general
+     *
+     * @param color
+     */
+    public void setPlaceholderColor(String color){
+        load("javascript:setPlaceholderColor('" + color + "')", null);
+    }
+
+    /**
      * Method to undo the last change
      */
     private void undo() {
@@ -405,7 +423,7 @@ public class EditorController {
      * @param replaceCurrentContent Boolean set to true replace the whole content, false to concatenate
      */
     void setHtmlContent(String htmlContent, Boolean replaceCurrentContent) {
-        load("javascript:setHtml(" + htmlContent + ", " + replaceCurrentContent + ")", null);
+        load("javascript:setHtml('" + htmlContent + "', " + replaceCurrentContent + ")", null);
     }
 
     /**

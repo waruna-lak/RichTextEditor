@@ -3,11 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/project/android/java/RichTextEditor/app/src/main/res/layout/activity_main.xml" value="0.11200000000000002" />
+        <entry key="..\:/project/android/java/RichTextEditor/app/src/main/res/layout/activity_main.xml" value="0.16799999999999998" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable-xxhdpi/cpv_ic_arrow_right_black_24dp.xml" value="0.119" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable-xxhdpi/cpv_preset_checked.xml" value="0.119" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable/cpv_ic_arrow_right_black_24dp.xml" value="0.119" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable/cpv_preset_checked.xml" value="0.119" />
+        <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable/ic_format_bold.xml" value="0.1" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/drawable/ic_undo.xml" value="0.119" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/layout/cpv_color_item_circle.xml" value="0.1" />
         <entry key="..\:/project/android/java/RichTextEditor/editor/src/main/res/layout/cpv_color_item_square.xml" value="0.136" />

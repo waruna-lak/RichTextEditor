@@ -3,14 +3,20 @@ package com.waruna.editor;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.TypedValue;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.waruna.editor.util.ColorHelper;
 
 /**
  * Copyright 2022 Waruna
@@ -33,6 +39,7 @@ public class RichTextEditor extends WebView {
     private static final String SETUP_HTML = "file:///android_asset/editor.html";
 
     private EditorController controller;
+    private OnEditorReadyCallback readyCallback;
 
     public RichTextEditor(@NonNull Context context) {
         super(context);
@@ -58,7 +65,7 @@ public class RichTextEditor extends WebView {
     private void init() {
 
         controller = new EditorController();
-        controller.setPlaceholder("Note");
+        controller.setPlaceholder("Type something here...");
         controller.setWebView(this);
 
         setVerticalScrollBarEnabled(false);
@@ -66,17 +73,36 @@ public class RichTextEditor extends WebView {
         getSettings().setJavaScriptEnabled(true);
         getSettings().setDomStorageEnabled(true);
         setWebChromeClient(new WebChromeClient());
-        setWebViewClient(new WebViewClient());
+        setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (readyCallback != null) readyCallback.onReady();
+                handleNightMode();
+            }
+        });
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
 
         setBackgroundColor(Color.TRANSPARENT);
+        setTextColor();
+        setPlaceholderTextColor();
+
+    }
+
+    /**
+     * set OnEditorReadyCallback for get know about ideal time for use editor
+     *
+     * @param callback OnEditorReadyCallback
+     */
+    public void onReady(OnEditorReadyCallback callback) {
+        readyCallback = callback;
     }
 
     /**
      * return controller of rich text editor
      *
-     * @return
+     * @return EditorController
      */
     public EditorController getController() {
         return controller;
@@ -134,5 +160,29 @@ public class RichTextEditor extends WebView {
         if (mode == Configuration.UI_MODE_NIGHT_YES) {
             controller.setDarkMode(true);
         }
+    }
+
+    private void setTextColor() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
+        TypedArray arr =
+                getContext().obtainStyledAttributes(typedValue.data, new int[]{
+                        android.R.attr.textColorPrimary});
+        int textColor = arr.getColor(0, -1);
+        arr.recycle();
+        controller.setTextColor(ColorHelper.toRGBAString(textColor));
+    }
+
+    private void setPlaceholderTextColor() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(android.R.attr.textColorHint, typedValue, true);
+        TypedArray arr =
+                getContext().obtainStyledAttributes(typedValue.data, new int[]{
+                        android.R.attr.textColorHint});
+        int textColor = arr.getColor(0, -1);
+        arr.recycle();
+        controller.setPlaceholderColor(ColorHelper.toRGBAString(textColor));
     }
 }

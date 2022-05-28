@@ -21,13 +21,13 @@ quill.focus();
 function darkMode(enable){
     let body = document.body
     if(enable){
-        if (!body.classList.contains('bg-dark')) {
-            body.classList.add('bg-dark')
+        if (!body.classList.contains('text-light')) {
+            //body.classList.add('bg-dark')
             body.classList.add('text-light')
         }
     } else {
-        if (body.classList.contains('bg-dark')) {
-            body.classList.remove('bg-dark')
+        if (body.classList.contains('text-light')) {
+            //body.classList.remove('bg-dark')
             body.classList.remove('text-light')
         }
     }
@@ -152,4 +152,11 @@ function setContents(data) { quill.setContents(data); }
 function format(formatFunction) {
     formatFunction();
     updateCurrentStyle();
+}
+
+function setDefaultColor(color){
+    document.documentElement.style.setProperty('--nr-color', color);
+}
+function setPlaceholderColor(color){
+    document.documentElement.style.setProperty('--pl-color', color);
 }
