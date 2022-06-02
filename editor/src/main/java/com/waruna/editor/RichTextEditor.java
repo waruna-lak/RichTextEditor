@@ -79,14 +79,14 @@ public class RichTextEditor extends WebView {
                 super.onPageFinished(view, url);
                 if (readyCallback != null) readyCallback.onReady();
                 handleNightMode();
+                setTextColor();
+                setPlaceholderTextColor();
             }
         });
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
 
         setBackgroundColor(Color.TRANSPARENT);
-        setTextColor();
-        setPlaceholderTextColor();
 
     }
 
