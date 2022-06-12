@@ -45,6 +45,9 @@ public class EditorController {
     private final HashMap<Integer, String> listStyleGroup;
 
     private StyleUpdatedCallback styleUpdatedCallback;
+    private OnContentsReturned contentCallback;
+    private OnTextReturned textCallback;
+    private OnHtmlReturned htmlCallback;
 
     public EditorController() {
         gson = new Gson();
@@ -117,6 +120,21 @@ public class EditorController {
             updateStyle(gson.fromJson(currentStyle, QuillFormat.class));
         } catch (Exception e) {
         } // ignored
+    }
+
+    /**
+     * Method to allow the listen changes of contents
+     *
+     * @param delta String
+     * @param text String
+     * @param html String
+     */
+    @SuppressLint("JavascriptInterface")
+    @JavascriptInterface
+    public void updateContentChanges(String delta, String text, String html) {
+        if(contentCallback != null) contentCallback.process(delta);
+        if(textCallback != null) textCallback.process(text);
+        if(htmlCallback != null) htmlCallback.process(html);
     }
 
     /**
@@ -441,6 +459,15 @@ public class EditorController {
     }
 
     /**
+     * Method to listen the HTML content and do (any) actions on the result
+     *
+     * @param callBack OnHtmlReturned action to do
+     */
+    void listenHtmlChange(OnHtmlReturned callBack){
+        htmlCallback = callBack;
+    }
+
+    /**
      * Private method to get the HTML content and do (any) actions on the result
      *
      * @param callback ValueCallback<String> action to do
@@ -464,6 +491,15 @@ public class EditorController {
     }
 
     /**
+     * Method to listen the TEXT content and do (any) actions on the result
+     *
+     * @param callBack OnTextReturned action to do
+     */
+    void listenTextChange(OnTextReturned callBack){
+        textCallback = callBack;
+    }
+
+    /**
      * Private method to get the delta content and do (any) actions on the result
      *
      * @param callback ValueCallback<String> action to do
@@ -484,6 +520,15 @@ public class EditorController {
                 callback.process(value);
             }
         });
+    }
+
+    /**
+     * Method to listen the TEXT content and do (any) actions on the result
+     *
+     * @param callBack OnContentsReturned action to do
+     */
+    void listenContentChange(OnContentsReturned callBack){
+        contentCallback = callBack;
     }
 
     /**
