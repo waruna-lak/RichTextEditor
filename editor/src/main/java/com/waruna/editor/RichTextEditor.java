@@ -79,14 +79,14 @@ public class RichTextEditor extends WebView {
                 super.onPageFinished(view, url);
                 if (readyCallback != null) readyCallback.onReady();
                 handleNightMode();
+                setTextColor();
+                setPlaceholderTextColor();
             }
         });
         addJavascriptInterface(controller, "RichTextEditor");
         loadUrl(SETUP_HTML);
 
         setBackgroundColor(Color.TRANSPARENT);
-        setTextColor();
-        setPlaceholderTextColor();
 
     }
 
@@ -152,6 +152,33 @@ public class RichTextEditor extends WebView {
      */
     public void setHtmlContent(String html, boolean replaceCurrentContent) {
         controller.setHtmlContent(html, replaceCurrentContent);
+    }
+
+    /**
+     * allows to listen content as a json (delta)
+     *
+     * @param callback OnContentsReturned
+     */
+    public void listenContentChange(EditorController.OnContentsReturned callback){
+        controller.listenContentChange(callback);
+    }
+
+    /**
+     * allows to listen content as a text
+     *
+     * @param callback OnTextReturned
+     */
+    public void listenTextChange(EditorController.OnTextReturned callback){
+        controller.listenTextChange(callback);
+    }
+
+    /**
+     * allows to listen content as a html
+     *
+     * @param callback OnHtmlReturned
+     */
+    public void listenHtmlChange(EditorController.OnHtmlReturned callback){
+        controller.listenHtmlChange(callback);
     }
 
     private void handleNightMode() {

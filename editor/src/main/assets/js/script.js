@@ -18,6 +18,10 @@ quill.on('selection-change', function(range, oldRange, source) {
     });
 quill.focus();
 
+quill.on('text-change', function(delta, source){
+    RichTextEditor.updateContentChanges(JSON.stringify(getContents()), getText(), getHtml());
+});
+
 function darkMode(enable){
     let body = document.body
     if(enable){
