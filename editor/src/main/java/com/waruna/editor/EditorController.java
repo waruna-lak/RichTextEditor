@@ -123,18 +123,17 @@ public class EditorController {
     }
 
     /**
-     * Method to allow the listen changes of contents
+     * Method to allow to listen changes of contents
      *
-     * @param delta String
+     * @param json String
      * @param text String
      * @param html String
      */
-    @SuppressLint("JavascriptInterface")
     @JavascriptInterface
-    public void updateContentChanges(String delta, String text, String html) {
-        if(contentCallback != null) contentCallback.process(delta);
-        if(textCallback != null) textCallback.process(text);
-        if(htmlCallback != null) htmlCallback.process(html);
+    public void updateContentChanges(String json, String text, String html) {
+        if (contentCallback != null) contentCallback.process(json);
+        if (textCallback != null) textCallback.process(text);
+        if (htmlCallback != null) htmlCallback.process(html);
     }
 
     /**
@@ -209,7 +208,7 @@ public class EditorController {
      *
      * @param color
      */
-    public void setTextColor(String color){
+    public void setTextColor(String color) {
         load("javascript:setDefaultColor('" + color + "')", null);
     }
 
@@ -218,7 +217,7 @@ public class EditorController {
      *
      * @param color
      */
-    public void setPlaceholderColor(String color){
+    public void setPlaceholderColor(String color) {
         load("javascript:setPlaceholderColor('" + color + "')", null);
     }
 
@@ -461,10 +460,10 @@ public class EditorController {
     /**
      * Method to listen the HTML content and do (any) actions on the result
      *
-     * @param callBack OnHtmlReturned action to do
+     * @param callback OnHtmlReturned action to do
      */
-    void listenHtmlChange(OnHtmlReturned callBack){
-        htmlCallback = callBack;
+    void listenHtmlChange(OnHtmlReturned callback) {
+        htmlCallback = callback;
     }
 
     /**
@@ -493,10 +492,10 @@ public class EditorController {
     /**
      * Method to listen the TEXT content and do (any) actions on the result
      *
-     * @param callBack OnTextReturned action to do
+     * @param callback OnTextReturned action to do
      */
-    void listenTextChange(OnTextReturned callBack){
-        textCallback = callBack;
+    void listenTextChange(OnTextReturned callback) {
+        textCallback = callback;
     }
 
     /**
@@ -523,12 +522,12 @@ public class EditorController {
     }
 
     /**
-     * Method to listen the TEXT content and do (any) actions on the result
+     * Method to listen the Content content and do (any) actions on the result
      *
-     * @param callBack OnContentsReturned action to do
+     * @param callback OnContentsReturned action to do
      */
-    void listenContentChange(OnContentsReturned callBack){
-        contentCallback = callBack;
+    void listenContentChange(OnContentsReturned callback) {
+        contentCallback = callback;
     }
 
     /**
@@ -537,7 +536,7 @@ public class EditorController {
      * @param data String delta content as string
      */
     void setContents(String data) {
-        load("javascript:setContents('" +data + "')", null);
+        load("javascript:setContents('" + data + "')", null);
     }
 
     /**

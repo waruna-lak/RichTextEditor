@@ -163,6 +163,24 @@ public class RichTextEditor extends WebView {
         controller.listenContentChange(callback);
     }
 
+    /**
+     * allows to listen content as a text
+     *
+     * @param callback OnTextReturned
+     */
+    public void listenTextChange(EditorController.OnTextReturned callback){
+        controller.listenTextChange(callback);
+    }
+
+    /**
+     * allows to listen content as a html
+     *
+     * @param callback OnHtmlReturned
+     */
+    public void listenHtmlChange(EditorController.OnHtmlReturned callback){
+        controller.listenHtmlChange(callback);
+    }
+
     private void handleNightMode() {
         int mode = getContext().getResources().getConfiguration().uiMode &
                 Configuration.UI_MODE_NIGHT_MASK;
