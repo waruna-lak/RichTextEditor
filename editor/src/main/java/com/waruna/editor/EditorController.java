@@ -45,6 +45,9 @@ public class EditorController {
     private final HashMap<Integer, String> listStyleGroup;
 
     private StyleUpdatedCallback styleUpdatedCallback;
+    private OnContentsReturned contentCallback;
+    private OnTextReturned textCallback;
+    private OnHtmlReturned htmlCallback;
 
     public EditorController() {
         gson = new Gson();
@@ -120,6 +123,20 @@ public class EditorController {
     }
 
     /**
+     * Method to allow to listen changes of contents
+     *
+     * @param json String
+     * @param text String
+     * @param html String
+     */
+    @JavascriptInterface
+    public void updateContentChanges(String json, String text, String html) {
+        if (contentCallback != null) contentCallback.process(json);
+        if (textCallback != null) textCallback.process(text);
+        if (htmlCallback != null) htmlCallback.process(html);
+    }
+
+    /**
      * Private function to update the current style of the editor
      *
      * @param quillFormat QuillFormat
@@ -191,7 +208,7 @@ public class EditorController {
      *
      * @param color
      */
-    public void setTextColor(String color){
+    public void setTextColor(String color) {
         load("javascript:setDefaultColor('" + color + "')", null);
     }
 
@@ -200,7 +217,7 @@ public class EditorController {
      *
      * @param color
      */
-    public void setPlaceholderColor(String color){
+    public void setPlaceholderColor(String color) {
         load("javascript:setPlaceholderColor('" + color + "')", null);
     }
 
@@ -441,6 +458,15 @@ public class EditorController {
     }
 
     /**
+     * Method to listen the HTML content and do (any) actions on the result
+     *
+     * @param callback OnHtmlReturned action to do
+     */
+    void listenHtmlChange(OnHtmlReturned callback) {
+        htmlCallback = callback;
+    }
+
+    /**
      * Private method to get the HTML content and do (any) actions on the result
      *
      * @param callback ValueCallback<String> action to do
@@ -461,6 +487,15 @@ public class EditorController {
                 callback.process(s);
             }
         });
+    }
+
+    /**
+     * Method to listen the TEXT content and do (any) actions on the result
+     *
+     * @param callback OnTextReturned action to do
+     */
+    void listenTextChange(OnTextReturned callback) {
+        textCallback = callback;
     }
 
     /**
@@ -487,12 +522,21 @@ public class EditorController {
     }
 
     /**
+     * Method to listen the Content content and do (any) actions on the result
+     *
+     * @param callback OnContentsReturned action to do
+     */
+    void listenContentChange(OnContentsReturned callback) {
+        contentCallback = callback;
+    }
+
+    /**
      * Method to set the delta content to the editor
      *
      * @param data String delta content as string
      */
     void setContents(String data) {
-        load("javascript:setContents('" +data + "')", null);
+        load("javascript:setContents('" + data + "')", null);
     }
 
     /**
