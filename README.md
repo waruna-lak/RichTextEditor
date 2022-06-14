@@ -48,7 +48,7 @@ Step 2. Add the dependency
 
 ```
 dependencies {
-    implementation 'com.github.waruna-lak:RichTextEditor:v0.1.1-alpha'
+    implementation 'com.github.waruna-lak:RichTextEditor:v0.1.2-alpha'
 }
 ```
 
