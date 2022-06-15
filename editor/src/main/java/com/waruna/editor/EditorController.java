@@ -536,7 +536,7 @@ public class EditorController {
      * @param data String delta content as string
      */
     void setContents(String data) {
-        load("javascript:setContents('" + data + "')", null);
+        load("javascript:setContents(" + data + ")", null);
     }
 
     /**
