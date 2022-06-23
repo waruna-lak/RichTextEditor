@@ -159,7 +159,7 @@ public class RichTextEditor extends WebView {
      *
      * @param callback OnContentsReturned
      */
-    public void listenContentChange(EditorController.OnContentsReturned callback){
+    public void listenContentChange(EditorController.OnContentsReturned callback) {
         controller.listenContentChange(callback);
     }
 
@@ -168,7 +168,7 @@ public class RichTextEditor extends WebView {
      *
      * @param callback OnTextReturned
      */
-    public void listenTextChange(EditorController.OnTextReturned callback){
+    public void listenTextChange(EditorController.OnTextReturned callback) {
         controller.listenTextChange(callback);
     }
 
@@ -177,8 +177,22 @@ public class RichTextEditor extends WebView {
      *
      * @param callback OnHtmlReturned
      */
-    public void listenHtmlChange(EditorController.OnHtmlReturned callback){
+    public void listenHtmlChange(EditorController.OnHtmlReturned callback) {
         controller.listenHtmlChange(callback);
+    }
+
+    /**
+     * allows to enable editor
+     */
+    public void enable() {
+        controller.enable();
+    }
+
+    /**
+     * allows to disable editor
+     */
+    public void disable() {
+        controller.disable();
     }
 
     private void handleNightMode() {
