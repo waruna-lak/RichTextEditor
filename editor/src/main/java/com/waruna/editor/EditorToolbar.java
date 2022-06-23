@@ -109,15 +109,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
         });
 
         // hide nav
-        toolbar.post(new Runnable() {
-            @Override
-            public void run() {
-                boolean right = toolbar.canScrollHorizontally(1);
-                if (!right) {
-                    hideNavButton();
-                }
-            }
-        });
+        handleNavButton();
 
         /*ArrayList<ToolbarItem> options = new ArrayList<>();
         options.add(new ToolbarItem(Action.BOLD, R.drawable.ic_format_bold));
@@ -138,6 +130,20 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
         adapter.setItems(options);*/
     }
 
+    private void handleNavButton() {
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                boolean right = toolbar.canScrollHorizontally(1);
+                if (!right) {
+                    hideNavButton();
+                } else {
+                    showNavButton();
+                }
+            }
+        });
+    }
+
     /**
      * Can select options for toolbar
      *
@@ -149,6 +155,7 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
             toolbarItems.add(getItem(a));
         }
         adapter.setItems(toolbarItems);
+        handleNavButton();
     }
 
     private ToolbarItem getItem(int type) {
