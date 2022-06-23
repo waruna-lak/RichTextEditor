@@ -40,32 +40,39 @@ public class RichTextEditor extends WebView {
 
     private EditorController controller;
     private OnEditorReadyCallback readyCallback;
+    private Boolean enable = true;
+    private String placeholder = null;
 
     public RichTextEditor(@NonNull Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public RichTextEditor(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public RichTextEditor(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
     public RichTextEditor(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(attrs);
     }
 
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
-    private void init() {
+    private void init(AttributeSet attrs) {
+
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RichTextEditor);
+        placeholder = a.getString(R.styleable.RichTextEditor_rte_hint);
+        enable = a.getBoolean(R.styleable.RichTextEditor_rte_enable, true);
+        a.recycle();
 
         controller = new EditorController();
-        controller.setPlaceholder("Type something here...");
+        controller.setPlaceholder(placeholder);
         controller.setWebView(this);
 
         setVerticalScrollBarEnabled(false);
@@ -81,6 +88,11 @@ public class RichTextEditor extends WebView {
                 handleNightMode();
                 setTextColor();
                 setPlaceholderTextColor();
+                if (enable) {
+                    controller.enable();
+                } else {
+                    controller.disable();
+                }
             }
         });
         addJavascriptInterface(controller, "RichTextEditor");
@@ -185,6 +197,7 @@ public class RichTextEditor extends WebView {
      * allows to enable editor
      */
     public void enable() {
+        enable = true;
         controller.enable();
     }
 
@@ -192,7 +205,22 @@ public class RichTextEditor extends WebView {
      * allows to disable editor
      */
     public void disable() {
+        enable = false;
         controller.disable();
+    }
+
+    /**
+     * allows to set placeholder
+     */
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    /**
+     * allows to get placeholder
+     */
+    public String getPlaceholder() {
+        return placeholder;
     }
 
     private void handleNightMode() {
