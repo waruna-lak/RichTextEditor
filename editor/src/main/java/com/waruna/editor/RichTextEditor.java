@@ -40,6 +40,7 @@ public class RichTextEditor extends WebView {
 
     private EditorController controller;
     private OnEditorReadyCallback readyCallback;
+    private Boolean enable = true;
 
     public RichTextEditor(@NonNull Context context) {
         super(context);
@@ -81,6 +82,11 @@ public class RichTextEditor extends WebView {
                 handleNightMode();
                 setTextColor();
                 setPlaceholderTextColor();
+                if (enable){
+                    controller.enable();
+                } else {
+                    controller.disable();
+                }
             }
         });
         addJavascriptInterface(controller, "RichTextEditor");
@@ -185,6 +191,7 @@ public class RichTextEditor extends WebView {
      * allows to enable editor
      */
     public void enable() {
+        enable = true;
         controller.enable();
     }
 
@@ -192,6 +199,7 @@ public class RichTextEditor extends WebView {
      * allows to disable editor
      */
     public void disable() {
+        enable = false;
         controller.disable();
     }
 
