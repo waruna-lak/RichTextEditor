@@ -2,19 +2,24 @@
 <resources>
 
     <declare-styleable name="ColorPanelView">
-        <attr format="boolean" name="cpv_showOldColor"/>
-        <attr format="enum" name="cpv_colorShape">
-            <enum name="square" value="0"/>
-            <enum name="circle" value="1"/>
+        <attr name="cpv_showOldColor" format="boolean" />
+        <attr name="cpv_colorShape" format="enum">
+            <enum name="square" value="0" />
+            <enum name="circle" value="1" />
         </attr>
-        <attr format="color|reference" name="cpv_borderColor"/>
+        <attr name="cpv_borderColor" format="color|reference" />
     </declare-styleable>
 
     <declare-styleable name="ColorPickerView" parent="ColorPanelView">
-        <attr format="boolean|reference" name="cpv_alphaChannelVisible"/>
-        <attr format="string|reference" name="cpv_alphaChannelText"/>
-        <attr format="color|reference" name="cpv_sliderColor"/>
-        <attr name="cpv_borderColor"/>
+        <attr name="cpv_alphaChannelVisible" format="boolean|reference" />
+        <attr name="cpv_alphaChannelText" format="string|reference" />
+        <attr name="cpv_sliderColor" format="color|reference" />
+        <attr name="cpv_borderColor" />
+    </declare-styleable>
+
+    <declare-styleable name="RichTextEditor">
+        <attr name="rte_hint" format="string" />
+        <attr name="rte_enable" format="boolean" />
     </declare-styleable>
 
 </resources>
