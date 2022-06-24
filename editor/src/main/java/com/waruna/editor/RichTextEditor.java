@@ -66,10 +66,12 @@ public class RichTextEditor extends WebView {
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     private void init(AttributeSet attrs) {
 
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RichTextEditor);
-        placeholder = a.getString(R.styleable.RichTextEditor_rte_hint);
-        enable = a.getBoolean(R.styleable.RichTextEditor_rte_enable, true);
-        a.recycle();
+        if (attrs != null) {
+            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RichTextEditor);
+            placeholder = a.getString(R.styleable.RichTextEditor_rte_hint);
+            enable = a.getBoolean(R.styleable.RichTextEditor_rte_enable, true);
+            a.recycle();
+        }
 
         controller = new EditorController();
         controller.setPlaceholder(placeholder);
