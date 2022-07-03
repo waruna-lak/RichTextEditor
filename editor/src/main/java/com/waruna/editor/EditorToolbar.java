@@ -160,65 +160,65 @@ public class EditorToolbar extends ConstraintLayout implements StyleUpdatedCallb
 
     private ToolbarItem getItem(int type) {
         if (Action.BOLD == type) {
-            return new ToolbarItem(Action.BOLD, R.drawable.ic_format_bold);
+            return new ToolbarItem(Action.BOLD, R.drawable.ic_action_bold);
         }
         if (Action.ITALIC == type) {
-            return new ToolbarItem(Action.ITALIC, R.drawable.ic_format_italic);
+            return new ToolbarItem(Action.ITALIC, R.drawable.ic_action_italic);
         }
         if (Action.UNDERLINE == type) {
-            return new ToolbarItem(Action.UNDERLINE, R.drawable.ic_format_underlined);
+            return new ToolbarItem(Action.UNDERLINE, R.drawable.ic_action_underlined);
         }
         if (Action.STRIKETHROUGH == type) {
-            return new ToolbarItem(Action.STRIKETHROUGH, R.drawable.ic_strikethrough_s);
+            return new ToolbarItem(Action.STRIKETHROUGH, R.drawable.ic_action_strikethrough_s);
         }
         if (Action.BLOCK_QUOTE == type) {
-            return new ToolbarItem(Action.BLOCK_QUOTE, R.drawable.ic_format_quote);
+            return new ToolbarItem(Action.BLOCK_QUOTE, R.drawable.ic_action_quote);
         }
         if (Action.CODE_VIEW == type) {
-            return new ToolbarItem(Action.CODE_VIEW, R.drawable.ic_code);
+            return new ToolbarItem(Action.CODE_VIEW, R.drawable.ic_action_code);
         }
         if (Action.ORDERED == type) {
-            return new ToolbarItem(Action.ORDERED, R.drawable.ic_format_list_numbered);
+            return new ToolbarItem(Action.ORDERED, R.drawable.ic_action_list_numbered);
         }
         if (Action.UNORDERED == type) {
-            return new ToolbarItem(Action.UNORDERED, R.drawable.ic_format_list_bulleted);
+            return new ToolbarItem(Action.UNORDERED, R.drawable.ic_action_list_bulleted);
         }
         if (Action.SUBSCRIPT == type) {
-            return new ToolbarItem(Action.SUBSCRIPT, R.drawable.ic_subscript);
+            return new ToolbarItem(Action.SUBSCRIPT, R.drawable.ic_action_subscript);
         }
         if (Action.SUPERSCRIPT == type) {
-            return new ToolbarItem(Action.SUPERSCRIPT, R.drawable.ic_superscript);
+            return new ToolbarItem(Action.SUPERSCRIPT, R.drawable.ic_action_superscript);
         }
         if (Action.INDENT == type) {
-            ToolbarItem item = new ToolbarItem(Action.INDENT, R.drawable.ic_format_indent_increase);
+            ToolbarItem item = new ToolbarItem(Action.INDENT, R.drawable.ic_action_indent_increase);
             item.setUpdate(false);
             return item;
         }
         if (Action.OUTDENT == type) {
-            ToolbarItem item = new ToolbarItem(Action.OUTDENT, R.drawable.ic_format_indent_decrease);
+            ToolbarItem item = new ToolbarItem(Action.OUTDENT, R.drawable.ic_action_indent_decrease);
             item.setUpdate(false);
             return item;
         }
         if (Action.FORE_COLOR == type) {
-            ToolbarItem item = new ToolbarItem(Action.FORE_COLOR, R.drawable.ic_format_color_text);
+            ToolbarItem item = new ToolbarItem(Action.FORE_COLOR, R.drawable.ic_action_color_text);
             item.setUpdate(false);
             return item;
         }
         if (Action.BACK_COLOR == type) {
-            ToolbarItem item = new ToolbarItem(Action.BACK_COLOR, R.drawable.ic_format_color_fill);
+            ToolbarItem item = new ToolbarItem(Action.BACK_COLOR, R.drawable.ic_action_color_fill);
             item.setUpdate(false);
             return item;
         }
         if (Action.CLEAR == type) {
-            return new ToolbarItem(Action.CLEAR, R.drawable.ic_format_clear);
+            return new ToolbarItem(Action.CLEAR, R.drawable.ic_action_clear);
         }
         if (Action.UNDO == type) {
-            ToolbarItem item = new ToolbarItem(Action.UNDO, R.drawable.ic_undo);
+            ToolbarItem item = new ToolbarItem(Action.UNDO, R.drawable.ic_action_undo);
             item.setUpdate(false);
             return item;
         }
         if (Action.REDO == type) {
-            ToolbarItem item = new ToolbarItem(Action.REDO, R.drawable.ic_redo);
+            ToolbarItem item = new ToolbarItem(Action.REDO, R.drawable.ic_action_redo);
             item.setUpdate(false);
             return item;
         }
